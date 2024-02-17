@@ -51,15 +51,15 @@ class BattingLine:
             for p in plays), Counter({a: 0 for a in attrs})
         )
         return BattingLine(player=plays[0].player, pa=len(plays), **c)
-    
+
     @staticmethod
     def from_play(_play: Play):
         ...
-    
+
     @staticmethod
     def from_bline(line: BoxRecords.Bline):
         return build_from_bline(line)
-    
+
     @property
     def avg(self):
         if self.ab == 0: return 0
@@ -68,15 +68,15 @@ class BattingLine:
     @property
     def obp(self):
         return (self.hbp + self.bb + self.h) / self.pa
-    
+
     @property
     def slg(self):
         return self.tb / self.ab
 
     @property
     def tb(self):
-        return (self.h + self.double + 2*self.triple + 3*self.hr)
-    
+        return self.h + self.double + 2*self.triple + 3*self.hr
+
     def __add__(self, other):
         if self.player and other.player:
             assert self.player == other.player, (self, other)

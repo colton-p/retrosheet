@@ -9,7 +9,9 @@ class EventRecords:
     Id = namedtuple('Id', ['tag', 'id'])
     Start = namedtuple('Start', ['tag', 'player', 'name', 'home_ind', 'order', 'position'])
     Sub = namedtuple('Sub', ['tag', 'player', 'name', 'home_ind', 'order', 'position'])
-    Play = namedtuple('Play', ['tag', 'inning', 'home_ind', 'player', 'count', 'pitch_seq', 'event'])
+    Play = namedtuple(
+        'Play', ['tag', 'inning', 'home_ind', 'player', 'count', 'pitch_seq', 'event']
+    )
     Event = Info | Id | Start | Sub | Play
 
 def build_event_record(line) -> EventRecords.Event | None:
@@ -44,7 +46,7 @@ def event_records(years=None):
             if rec.tag == 'id':
                 game_id = rec.id
             yield (game_id, rec)
-    
+
     rec_iter = _ungrouped_event_records(years=years)
     it = itertools.groupby(keyed_games(rec_iter), key=lambda x: x[0])
     for (_key, game_iter) in it:

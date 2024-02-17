@@ -20,7 +20,7 @@ def build_from_game_log(line: GameLogRecord):
                 offset = s[ix:].index(')')
                 ret += [int(s[ix+1:ix+offset])]
                 ix += offset+1
-        return ret 
+        return ret
 
     return GameResult(
         game_spec=GameSpec.from_game_log(line),

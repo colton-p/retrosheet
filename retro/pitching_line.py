@@ -27,7 +27,7 @@ class PitchingLine:
     @staticmethod
     def from_pline(line: BoxRecords.Pline):
         return build_from_pline(line)
-    
+
     def __add__(self, other):
         assert self.player == other.player, (self, other)
         a = dataclasses.asdict(self)

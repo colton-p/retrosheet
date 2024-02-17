@@ -23,8 +23,11 @@ class BoxScore:
     @staticmethod
     def from_box_file(lines):
         spec = GameSpec.from_events(lines)
-        blines = [(rec.home_ind, BattingLine.from_bline(rec)) for rec in lines if rec.tag == 'stat' and rec.stat_type == 'bline']
-        plines = [(rec.home_ind, PitchingLine.from_pline(rec)) for rec in lines if rec.tag == 'stat' and rec.stat_type == 'pline']
+        def stat_lines(stat_type):
+            return (rec for rec in lines if rec.tag == 'stat' and rec.stat_type == stat_type)
+
+        blines = [(rec.home_ind, BattingLine.from_bline(rec)) for rec in stat_lines('bline')]
+        plines = [(rec.home_ind, PitchingLine.from_pline(rec)) for rec in stat_lines('pline')]
         return BoxScore(spec, blines, plines)
 
     @staticmethod

@@ -10,7 +10,7 @@ RosterRecord = namedtuple('RosterRecord', [
     'throws',
     'team',
     'position'
-])
+], defaults=['' for _ in range(7)])
 
 def build_roster_record(line):
     return RosterRecord(*line)

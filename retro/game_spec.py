@@ -7,13 +7,14 @@ from retro.readers import GameLogRecord, game_log_records, EventRecords
 def _build_from_game_log(rec: GameLogRecord):
     def _build_lineup(side):
         lineup_ids = [getattr(rec, f'{side}_lineup_{ix}_id') for ix in range(1, 10)]
+        lineup_names = [getattr(rec, f'{side}_lineup_{ix}_name') for ix in range(1, 10)]
         lineup_pos = [getattr(rec, f'{side}_lineup_{ix}_pos') for ix in range(1, 10)]
         if any(x == '' for x in lineup_ids):
             return []
         return [
-            LineupSlot(player, ix + 1, int(position or -1))
-            for (ix, (player, position)) in
-            enumerate(zip(lineup_ids, lineup_pos))
+            LineupSlot(player, name, ix + 1, int(position or -1))
+            for (ix, (player, name, position)) in
+            enumerate(zip(lineup_ids, lineup_names, lineup_pos))
         ]
 
     return GameSpec(
@@ -42,7 +43,7 @@ def _build_from_events(records: List[EventRecords.Event]):
     lineups = {}
     for ind in '01':
         lineups[ind] = [
-            LineupSlot(rec.player, int(rec.order), int(rec.position))
+            LineupSlot(rec.player, rec.name, int(rec.order), int(rec.position))
             for rec in start_lines
             if rec.order in '123456789' and rec.home_ind == ind
         ]
@@ -75,6 +76,7 @@ def _build_from_events(records: List[EventRecords.Event]):
 class LineupSlot:
     """A player in a batting order"""
     player: str
+    name: str
     order: int
     position: int
 
@@ -109,7 +111,7 @@ class GameSpec:
     @staticmethod
     def from_events(lines: List[EventRecords.Event]):
         return _build_from_events(lines)
-    
+
     @staticmethod
     def from_game_log(line: GameLogRecord):
         return _build_from_game_log(line)

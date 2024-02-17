@@ -12,8 +12,12 @@ class BoxRecords:
     Start = EventRecords.Start
     Sub = EventRecords.Sub
 
-    Bline = namedtuple('Bline', ['tag','stat_type','player','home_ind','pos','seq','ab','r','h','double','triple','hr','rbi','sh','sf','hbp','bb','ibb','k','sb','cs','gidp','interference'])
-    Pline = namedtuple('Pline', ['tag', 'stat_type','player','home_ind', 'seq','ipx3','no_out','bfp','h','h2b','h3b','hr','r','er','bb','ibb','k','hbp','wp','balk','sh','sf'])
+    Bline = namedtuple('Bline', [
+        'tag','stat_type','player','home_ind','pos','seq','ab','r','h','double','triple',
+        'hr','rbi','sh','sf','hbp','bb','ibb','k','sb','cs','gidp','interference'])
+    Pline = namedtuple('Pline', [
+        'tag', 'stat_type','player','home_ind', 'seq','ipx3','no_out','bfp','h','h2b','h3b',
+        'hr','r','er','bb','ibb','k','hbp','wp','balk','sh','sf'])
 
     Box = Id | Info | Start | Sub | Bline | Pline
 
@@ -35,7 +39,7 @@ def build_box_record(line: BoxRecords.Box):
         if stat_type == 'pline':
             return BoxRecords.Pline(*line)
 
-    return
+    return None
 
 def _ungrouped_box_records(years):
     patterns = [f"data/boxes/{year}.EB[AN]" for year in years]

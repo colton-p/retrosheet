@@ -30,7 +30,7 @@ def _build_from_events(records: List[EventRecords.Event]):
             opp_pitcher[str(1-int(rec.home_ind))] = rec.player
 
     return PlayByPlay(spec, plays, pitchers)
- 
+
 
 @dataclasses.dataclass
 class PlayByPlay:
@@ -41,7 +41,7 @@ class PlayByPlay:
     @staticmethod
     def from_events(lines):
         return _build_from_events(lines)
-    
+
     def batting_lines(self):
         by_player = defaultdict(list)
         for play in self.plays:

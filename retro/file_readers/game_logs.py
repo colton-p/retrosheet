@@ -23,8 +23,10 @@ GameLogRecord = namedtuple(
         'home_starter',
     ] +
     [f'away_lineup_{ix}_id' for ix in range(1, 10)] +
+    [f'away_lineup_{ix}_name' for ix in range(1, 10)] +
     [f'away_lineup_{ix}_pos' for ix in range(1, 10)] +
     [f'home_lineup_{ix}_id' for ix in range(1, 10)] +
+    [f'home_lineup_{ix}_name' for ix in range(1, 10)] +
     [f'home_lineup_{ix}_pos' for ix in range(1, 10)]
 )
 
@@ -37,8 +39,10 @@ def build_game_log_record(line):
         'away_starter': 102, 'home_starter': 104,
     } |
         {f'away_lineup_{ix+1}_id': 106 + 3*ix for ix in range(9)} |
+        {f'away_lineup_{ix+1}_name': 107 + 3*ix for ix in range(9)} |
         {f'away_lineup_{ix+1}_pos': 108 + 3*ix for ix in range(9)} |
         {f'home_lineup_{ix+1}_id': 133 + 3*ix for ix in range(9)} |
+        {f'home_lineup_{ix+1}_name': 134 + 3*ix for ix in range(9)} |
         {f'home_lineup_{ix+1}_pos': 135 + 3*ix for ix in range(9)}
     )
 
