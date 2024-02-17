@@ -8,7 +8,7 @@ layout: default
 <ul>
 {% for page in site.pages %}
 <li>
-<a href="{% link {{page.relative_path}} %}">
+<a href="{{page.url | relative_url}}">
 {{page.title}}
 </a>
 </li>
