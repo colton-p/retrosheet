@@ -7,8 +7,10 @@ layout: default
 
 <ul>
 {% for page in site.pages %}
-    <li>
-        <a href="{{page.url}}">{{page.title}}</a>
-    </li>
+<li>
+<a href="{% link {{page.relative_path}} %}">
+{{page.title}}
+</a>
+</li>
 {% endfor %}
 </ul>
